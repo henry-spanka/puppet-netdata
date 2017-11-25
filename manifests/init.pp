@@ -42,7 +42,18 @@
 #
 # Copyright 2017 Your name here, unless otherwise noted.
 #
-class netdata {
+class netdata (
+    String $web_bind = '*'
+) {
 
+    include netdata::deps
+
+    include netdata::install
+    include netdata::config
+    include netdata::service
+
+    netdata_config {
+        'web/bind to':  value => $web_bind,
+    }
 
 }
