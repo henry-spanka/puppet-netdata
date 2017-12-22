@@ -68,7 +68,7 @@ class netdata (
             'backend/type':                             value => 'graphite';
             'backend/destination':                      value => $destination;
             'backend/data source':                      value => $data_source;
-            'backend/update every':                     value => $update_every,
+            'backend/update every':                     value => $update_every;
             'backend/prefix':                           value => $prefix;
             'backend/send names instead of ids': value => 'yes';
         }
