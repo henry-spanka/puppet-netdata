@@ -43,7 +43,12 @@
 # Copyright 2017 Your name here, unless otherwise noted.
 #
 class netdata (
-    String $web_bind = '*'
+    String $web_bind = '*',
+    Boolean $enable_backend = False,
+    String $destination = 'tcp:localhost:2003',
+    String $data_source = 'average',
+    String $update_every = '10',
+    String $prefix = 'netdata',
 ) {
 
     include netdata::deps
@@ -53,7 +58,25 @@ class netdata (
     include netdata::service
 
     netdata_config {
-        'web/bind to':  value => $web_bind,
+        'web/bind to':  value => $web_bind;
+    }
+
+    if ($enable_backend) {
+        # lint:ignore:duplicate_params
+        netdata_config {
+            'backend/enabled':                          value => 'yes';
+            'backend/type':                             value => 'graphite';
+            'backend/destination':                      value => $destination;
+            'backend/data source':                      value => $data_source;
+            'backend/update every':                     value => $update_every,
+            'backend/prefix':                           value => $prefix;
+            'backend/send names instead of ids': value => 'yes';
+        }
+        # lint:endignore
+    } else {
+        netdata_config {
+            'backend/enabled':  value => 'no';
+        }
     }
 
 }
