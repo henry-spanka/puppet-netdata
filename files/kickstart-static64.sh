@@ -181,7 +181,7 @@ if [[ -n "$3" ]]; then
     VERSION=$3
 fi
 
-LATEST="${VERSION}.gz.run"
+LATEST="netdata-${VERSION}.gz.run"
 
 if [ "${VERSION}" != "latest"]; then
     if [ ! -z "${curl}" -a -x "${curl}" ]
