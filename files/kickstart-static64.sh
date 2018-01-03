@@ -171,21 +171,33 @@ wget="$(which_cmd wget)"
 progress "Checking the latest version of static build..."
 
 BASE='https://raw.githubusercontent.com/firehol/binary-packages/master'
+VERSION=latest
 
-LATEST=
-if [ ! -z "${curl}" -a -x "${curl}" ]
-then
-    LATEST="$(run ${curl} "${BASE}/netdata-latest.gz.run")"
-elif [ ! -z "${wget}" -a -x "${wget}" ]
-then
-    LATEST="$(run ${wget} -O - "${BASE}/netdata-latest.gz.run")"
-else
-    fatal "curl or wget are needed for this script to work."
+if [ !-z "$2"]; then
+    BASE=$2
+fi
+
+if [ !-z "$3"]; then
+    VERSION=$3
+fi
+
+LATEST=$VERSION
+
+if [ "${VERSION}" != "latest"]; then
+    if [ ! -z "${curl}" -a -x "${curl}" ]
+    then
+        LATEST="$(run ${curl} "${BASE}/netdata-${VERSION}.gz.run")"
+    elif [ ! -z "${wget}" -a -x "${wget}" ]
+    then
+        LATEST="$(run ${wget} -O - "${BASE}/netdata-${VERSION}.gz.run")"
+    else
+        fatal "curl or wget are needed for this script to work."
+    fi
 fi
 
 if [ -z "${LATEST}" ]
 	then
-	fatal "Cannot find the latest static binary version of netdata."
+	fatal "Cannot find the static binary version of netdata."
 fi
 
 # ---------------------------------------------------------------------------------------------------------------------

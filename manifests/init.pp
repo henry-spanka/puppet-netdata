@@ -49,11 +49,17 @@ class netdata (
     String $data_source = 'average',
     String $update_every = '10',
     String $prefix = 'netdata',
+    # Latest version will not update after installed
+    String $version = 'latest',
+    String $base = 'https://raw.githubusercontent.com/firehol/binary-packages/master',
 ) {
 
     include netdata::deps
 
-    include netdata::install
+    class { 'netdata::install':
+        version => $version,
+        base    => $base,
+    }
     include netdata::config
     include netdata::service
 
