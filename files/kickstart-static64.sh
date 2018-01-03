@@ -241,4 +241,5 @@ if [ $? -eq 0 ]
 	rm "/tmp/${LATEST}"
 else
 	echo >&2 "NOTE: did not remove: /tmp/${LATEST}"
+    fatal "Error occured during installation."
 fi
