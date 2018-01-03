@@ -173,15 +173,15 @@ progress "Checking the latest version of static build..."
 BASE='https://raw.githubusercontent.com/firehol/binary-packages/master'
 VERSION=latest
 
-if [ !-z "$2"]; then
+if [[ -n "$2" ]]; then
     BASE=$2
 fi
 
-if [ !-z "$3"]; then
+if [[ -n "$3" ]]; then
     VERSION=$3
 fi
 
-LATEST=$VERSION
+LATEST="${VERSION}.gz.run"
 
 if [ "${VERSION}" != "latest"]; then
     if [ ! -z "${curl}" -a -x "${curl}" ]
