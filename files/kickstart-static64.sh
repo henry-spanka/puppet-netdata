@@ -183,7 +183,7 @@ fi
 
 LATEST="netdata-${VERSION}.gz.run"
 
-if [ "${VERSION}" != "latest" ]; then
+if [ "${VERSION}" = "latest" ]; then
     if [ ! -z "${curl}" -a -x "${curl}" ]
     then
         LATEST="$(run ${curl} "${BASE}/netdata-${VERSION}.gz.run")"
